@@ -25,7 +25,7 @@ async function run() {
     await client.connect();
 
     const spotCollection = client.db("spotDB").collection("touristSpot");
-
+    const userCollection = client.db("spotDB").collection("user");
     app.get("/spots", async (req, res) => {
       const cursor = spotCollection.find();
       const result = await cursor.toArray();
@@ -35,6 +35,13 @@ async function run() {
       const newSopt = req.body;
       console.log(newSopt);
       const result = await spotCollection.insertOne(newSopt);
+      res.send(result);
+    });
+
+    app.post("/user", async (req, res) => {
+      const user = req.body;
+      console.log(user);
+      const result = await userCollection.insertOne(user);
       res.send(result);
     });
     // Send a ping to confirm a successful connection
