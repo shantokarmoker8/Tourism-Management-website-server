@@ -31,6 +31,13 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+
+    app.get("/user", async (req, res) => {
+      const cursor = userCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     app.post("/spots", async (req, res) => {
       const newSopt = req.body;
       console.log(newSopt);
@@ -44,6 +51,7 @@ async function run() {
       const result = await userCollection.insertOne(user);
       res.send(result);
     });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
